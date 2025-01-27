@@ -1,8 +1,13 @@
-# React + Vite
+Gerenciador de Tarefas - Estudo
+Projeto simples de estudo para criar uma aplicação de gerenciamento de tarefas (To-Do List) utilizando ReactJS e TailwindCSS.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Funcionalidades
+Listar tarefas.
+Adicionar novas tarefas.
+Remover tarefas.
+Marcar tarefas como concluídas.
+Tecnologias
+ReactJS: Interface e componentes.
+TailwindCSS: Estilização.
+API Fictícia: Consumo de dados com GET e POST.
+Projeto focado em boas práticas como componentização, uso de estados e commits organizados no Git.
