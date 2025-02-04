@@ -1,37 +1,71 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import './styles/index.css';
+import  { useState, useEffect } from 'react';
+import TaskForm from './components/TaskForm';
+import TaskList from './components/TaskList';
 
+const App = () => {
+  const [tasks, setTasks] = useState([]);
+  const [filter, setFilter] = useState('all'); // 'all', 'completed', 'pending'
 
-function App() {
-  const [count, setCount] = useState(0)
+  useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/todos')
+      .then((response) => response.json())
+      .then((data) => setTasks(data.slice(0, 10))); // Limita a 10 tarefas para exemplo
+  }, []);
+
+  const addTask = (title) => {
+    const newTask = {
+      id: tasks.length + 1,
+      title,
+      completed: false,
+    };
+    setTasks([...tasks, newTask]);
+  };
+
+  const deleteTask = (id) => {
+    setTasks(tasks.filter((task) => task.id !== id));
+  };
+
+  const toggleTask = (id) => {
+    setTasks(
+      tasks.map((task) =>
+        task.id === id ? { ...task, completed: !task.completed } : task
+      )
+    );
+  };
+
+  const filteredTasks = tasks.filter((task) => {
+    if (filter === 'completed') return task.completed;
+    if (filter === 'pending') return !task.completed;
+    return true; // 'all'
+  });
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+    <div className="container mx-auto p-4">
+      <h1 className="text-2xl font-bold mb-4">Lista de Tarefas</h1>
+      <TaskForm onAddTask={addTask} />
+      <div className="mb-4">
+        <button
+          onClick={() => setFilter('all')}
+          className={`mr-2 p-2 ${filter === 'all' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+        >
+          Todas
         </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+        <button
+          onClick={() => setFilter('completed')}
+          className={`mr-2 p-2 ${filter === 'completed' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+        >
+          Concluídas
+        </button>
+        <button
+          onClick={() => setFilter('pending')}
+          className={`p-2 ${filter === 'pending' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+        >
+          Pendentes
+        </button>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+      <TaskList tasks={filteredTasks} onDelete={deleteTask} onToggle={toggleTask} />
+    </div>
+  );
+};
 
-export default App
+export default App;
