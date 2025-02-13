@@ -1,4 +1,4 @@
-import TaskItem from '../TaskItem'; // Importação correta
+import TaskItem from '../TaskItem'; 
 
 const TaskList = ({ tasks, onDelete, onToggle }) => {
   return (

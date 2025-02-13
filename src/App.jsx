@@ -1,30 +1,39 @@
-import  { useState, useEffect } from 'react';
-import TaskForm from './components/TaskForm';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios'; 
+import TaskForm from './components/TaskForm'; // Corrigido: Importe o TaskForm
 import TaskList from './components/TaskList';
 
 const App = () => {
   const [tasks, setTasks] = useState([]);
   const [filter, setFilter] = useState('all'); // 'all', 'completed', 'pending'
 
+  // Buscar tarefas da API ao carregar o componente
   useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/todos')
-      .then((response) => response.json())
-      .then((data) => setTasks(data.slice(0, 10))); // Limita a 10 tarefas para exemplo
+    axios.get('https://jsonplaceholder.typicode.com/todos') // URL correta da API
+      .then((response) => {
+        setTasks(response.data.slice(0, 10)); // Limita a 10 tarefas para exemplo
+      })
+      .catch((error) => {
+        console.error('Erro ao buscar tarefas:', error);
+      });
   }, []);
 
+  // Adicionar uma nova tarefa
   const addTask = (title) => {
     const newTask = {
-      id: tasks.length + 1,
-      title,
+      id: tasks.length + 1, // Gera um ID único (não recomendado para produção)
+      title: title,
       completed: false,
     };
-    setTasks([...tasks, newTask]);
+    setTasks([...tasks, newTask]); // Adiciona a nova tarefa ao estado
   };
 
+  // Remover uma tarefa
   const deleteTask = (id) => {
-    setTasks(tasks.filter((task) => task.id !== id));
+    setTasks(tasks.filter((task) => task.id !== id)); // Filtra as tarefas, removendo a que tem o ID especificado
   };
 
+  // Marcar/desmarcar uma tarefa como concluída
   const toggleTask = (id) => {
     setTasks(
       tasks.map((task) =>
@@ -33,6 +42,7 @@ const App = () => {
     );
   };
 
+  // Filtrar tarefas com base no estado (concluídas, pendentes ou todas)
   const filteredTasks = tasks.filter((task) => {
     if (filter === 'completed') return task.completed;
     if (filter === 'pending') return !task.completed;
