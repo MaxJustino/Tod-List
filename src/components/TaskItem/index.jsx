@@ -1,6 +1,4 @@
-
-
-const TaskItem = ({ task, onDelete, onToggle }) => {
+ const TaskItem = ({ task, onDelete, onToggle }) => {
   return (
     <div className="flex justify-between items-center p-4 border-b">
       <span className={task.completed ? 'line-through' : ''}>{task.title}</span>
@@ -14,4 +12,6 @@ const TaskItem = ({ task, onDelete, onToggle }) => {
   );
 };
 
-export default TaskItem;
+export default TaskItem; 
+
+

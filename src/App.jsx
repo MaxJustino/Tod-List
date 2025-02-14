@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios'; 
-import TaskForm from './components/TaskForm'; // Corrigido: Importe o TaskForm
+import axios from 'axios'; // Importe o Axios
+import TaskForm from './components/TaskForm';
 import TaskList from './components/TaskList';
 
 const App = () => {
@@ -9,9 +9,9 @@ const App = () => {
 
   // Buscar tarefas da API ao carregar o componente
   useEffect(() => {
-    axios.get('https://jsonplaceholder.typicode.com/todos') // URL correta da API
+    axios.get('https://jsonplaceholder.typicode.com/todos') // GET para buscar tarefas
       .then((response) => {
-        setTasks(response.data.slice(0, 10)); // Limita a 10 tarefas para exemplo
+        setTasks(response.data.slice(0, 10)); // Limita a 10 tarefas 
       })
       .catch((error) => {
         console.error('Erro ao buscar tarefas:', error);
@@ -21,19 +21,26 @@ const App = () => {
   // Adicionar uma nova tarefa
   const addTask = (title) => {
     const newTask = {
-      id: tasks.length + 1, // Gera um ID único (não recomendado para produção)
+      userId: 1, // ID do usuário 
       title: title,
       completed: false,
     };
-    setTasks([...tasks, newTask]); // Adiciona a nova tarefa ao estado
+
+    axios.post('https://jsonplaceholder.typicode.com/todos', newTask) // POST para adicionar tarefa
+      .then((response) => {
+        setTasks([...tasks, response.data]); // Adiciona a nova tarefa ao estado
+      })
+      .catch((error) => {
+        console.error('Erro ao adicionar tarefa:', error);
+      });
   };
 
-  // Remover uma tarefa
+  // Remover uma tarefa (localmente)
   const deleteTask = (id) => {
-    setTasks(tasks.filter((task) => task.id !== id)); // Filtra as tarefas, removendo a que tem o ID especificado
+    setTasks(tasks.filter((task) => task.id !== id));
   };
 
-  // Marcar/desmarcar uma tarefa como concluída
+  // Marcar/desmarcar uma tarefa como concluída (localmente)
   const toggleTask = (id) => {
     setTasks(
       tasks.map((task) =>
