@@ -61,24 +61,30 @@ const App = () => {
       <h1 className="text-2xl font-bold mb-4">Lista de Tarefas</h1>
       <TaskForm onAddTask={addTask} />
       <div className="mb-4">
-        <button
-          onClick={() => setFilter('all')}
-          className={`mr-2 p-2 ${filter === 'all' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
-        >
-          Todas
-        </button>
-        <button
-          onClick={() => setFilter('completed')}
-          className={`mr-2 p-2 ${filter === 'completed' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
-        >
-          Concluídas
-        </button>
-        <button
-          onClick={() => setFilter('pending')}
-          className={`p-2 ${filter === 'pending' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
-        >
-          Pendentes
-        </button>
+      <button
+  onClick={() => setFilter('all')}
+  className={`mr-2 p-2 rounded ${
+    filter === 'all' ? 'bg-blue-500 text-white' : 'bg-gray-200'
+  } hover:bg-blue-500 hover:text-white transition-colors`}
+>
+  Todas
+</button>
+<button
+  onClick={() => setFilter('completed')}
+  className={`mr-2 p-2 rounded ${
+    filter === 'completed' ? 'bg-blue-500 text-white' : 'bg-gray-200'
+  } hover:bg-blue-500 hover:text-white transition-colors`}
+>
+  Concluídas
+</button>
+<button
+  onClick={() => setFilter('pending')}
+  className={`p-2 rounded ${
+    filter === 'pending' ? 'bg-blue-500 text-white' : 'bg-gray-200'
+  } hover:bg-blue-500 hover:text-white transition-colors`}
+>
+  Pendentes
+</button>
       </div>
       <TaskList tasks={filteredTasks} onDelete={deleteTask} onToggle={toggleTask} />
     </div>

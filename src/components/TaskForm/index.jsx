@@ -34,9 +34,12 @@ const TaskForm = ({ onAddTask }) => {
         placeholder="Adicionar nova tarefa"
         className="p-2 border rounded"
       />
-      <button type="submit" className="ml-2 p-2 bg-blue-500 text-white rounded">
-        Adicionar
-      </button>
+      <button
+  type="submit"
+  className="ml-2 p-2 bg-green-500 text-white rounded hover:bg-green-600 transition-colors"
+>
+  Adicionar
+</button>
     </form>
   );
 };
