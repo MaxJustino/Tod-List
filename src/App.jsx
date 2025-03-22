@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios'; // Importe o Axios
+import axios from 'axios';
 import TaskForm from './components/TaskForm';
 import TaskList from './components/TaskList';
 
@@ -9,9 +9,9 @@ const App = () => {
 
   // Buscar tarefas da API ao carregar o componente
   useEffect(() => {
-    axios.get('https://jsonplaceholder.typicode.com/todos') // GET para buscar tarefas
+    axios.get('https://jsonplaceholder.typicode.com/todos')
       .then((response) => {
-        setTasks(response.data.slice(0, 10)); // Limita a 10 tarefas 
+        setTasks(response.data.slice(0, 10)); // Limita a 10 tarefas
       })
       .catch((error) => {
         console.error('Erro ao buscar tarefas:', error);
@@ -21,12 +21,12 @@ const App = () => {
   // Adicionar uma nova tarefa
   const addTask = (title) => {
     const newTask = {
-      userId: 1, // ID do usuário 
+      userId: 1, // ID do usuário
       title: title,
       completed: false,
     };
 
-    axios.post('https://jsonplaceholder.typicode.com/todos', newTask) // POST para adicionar tarefa
+    axios.post('https://jsonplaceholder.typicode.com/todos', newTask)
       .then((response) => {
         setTasks([...tasks, response.data]); // Adiciona a nova tarefa ao estado
       })
@@ -57,36 +57,52 @@ const App = () => {
   });
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Lista de Tarefas</h1>
-      <TaskForm onAddTask={addTask} />
-      <div className="mb-4">
-      <button
-  onClick={() => setFilter('all')}
-  className={`mr-2 p-2 rounded ${
-    filter === 'all' ? 'bg-blue-500 text-white' : 'bg-gray-200'
-  } hover:bg-blue-500 hover:text-white transition-colors`}
->
-  Todas
-</button>
-<button
-  onClick={() => setFilter('completed')}
-  className={`mr-2 p-2 rounded ${
-    filter === 'completed' ? 'bg-blue-500 text-white' : 'bg-gray-200'
-  } hover:bg-blue-500 hover:text-white transition-colors`}
->
-  Concluídas
-</button>
-<button
-  onClick={() => setFilter('pending')}
-  className={`p-2 rounded ${
-    filter === 'pending' ? 'bg-blue-500 text-white' : 'bg-gray-200'
-  } hover:bg-blue-500 hover:text-white transition-colors`}
->
-  Pendentes
-</button>
+    <div className="min-h-screen bg-neutral-800 py-8">
+      <div className="flex justify-center">
+        <div className="max-w-2xl w-full rounded-lg shadow-lg p-8">
+          <h1 className="text-3xl font-bold text-center text-gray-400 mb-6">Lista de Tarefas</h1>
+
+          {/* Formulário de adição de tarefas */}
+          <TaskForm onAddTask={addTask} />
+
+          {/* Botões de filtro */}
+          <div className="flex justify-center space-x-4 mb-6">
+            <button
+              onClick={() => setFilter('all')}
+              className={`px-5 py-2 rounded-lg transition-colors ${
+                filter === 'all'
+                  ? 'bg-blue-500 text-white'
+                  : 'bg-gray-200 text-gray-700 hover:bg-blue-500 hover:text-white'
+              }`}
+            >
+              Todas
+            </button>
+            <button
+              onClick={() => setFilter('completed')}
+              className={`px-4 py-2 rounded-lg transition-colors ${
+                filter === 'completed'
+                  ? 'bg-blue-500 text-white'
+                  : 'bg-gray-200 text-gray-700 hover:bg-blue-500 hover:text-white'
+              }`}
+            >
+              Concluídas
+            </button>
+            <button
+              onClick={() => setFilter('pending')}
+              className={`px-4 py-2 rounded-lg transition-colors ${
+                filter === 'pending'
+                  ? 'bg-blue-500 text-white'
+                  : 'bg-gray-200 text-gray-700 hover:bg-blue-500 hover:text-white'
+              }`}
+            >
+              Pendentes
+            </button>
+          </div>
+
+          {/* Lista de tarefas */}
+          <TaskList tasks={filteredTasks} onDelete={deleteTask} onToggle={toggleTask} />
+        </div>
       </div>
-      <TaskList tasks={filteredTasks} onDelete={deleteTask} onToggle={toggleTask} />
     </div>
   );
 };

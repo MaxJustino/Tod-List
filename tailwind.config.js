@@ -1,13 +1,10 @@
 module.exports = {
   content: [
-    "./src/**/*.{js,jsx,ts,tsx}", // Certifique-se de que todos os arquivos JSX/TSX estão incluídos
+    "./index.html",
+    "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {
-      transitionProperty: {
-        colors: 'background-color, border-color, color', // Adiciona suporte para transição de cores
-      },
-    },
+    extend: {},
   },
   plugins: [],
 };
