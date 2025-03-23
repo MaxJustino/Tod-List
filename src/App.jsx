@@ -11,7 +11,7 @@ const App = () => {
   useEffect(() => {
     axios.get('https://jsonplaceholder.typicode.com/todos')
       .then((response) => {
-        setTasks(response.data.slice(0, 10)); // Limita a 10 tarefas
+        setTasks(response.data.slice(0, 20)); // Limita a 20 tarefas
       })
       .catch((error) => {
         console.error('Erro ao buscar tarefas:', error);
@@ -21,18 +21,13 @@ const App = () => {
   // Adicionar uma nova tarefa
   const addTask = (title) => {
     const newTask = {
+      id: Date.now(), // Gera um ID único com timestamp
       userId: 1, // ID do usuário
       title: title,
       completed: false,
     };
 
-    axios.post('https://jsonplaceholder.typicode.com/todos', newTask)
-      .then((response) => {
-        setTasks([...tasks, response.data]); // Adiciona a nova tarefa ao estado
-      })
-      .catch((error) => {
-        console.error('Erro ao adicionar tarefa:', error);
-      });
+    setTasks([...tasks, newTask]); // Adiciona a nova tarefa ao estado
   };
 
   // Remover uma tarefa (localmente)

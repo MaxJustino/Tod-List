@@ -22,7 +22,7 @@ const TaskItem = ({ task, onDelete, onToggle }) => {
               ? 'bg-yellow-500 text-white hover:bg-yellow-600'
               : 'bg-green-500 text-white hover:bg-green-600'
           }`}
-        >
+        >       
           {task.completed ? 'Desfazer' : 'Concluir'}
         </button>
 
