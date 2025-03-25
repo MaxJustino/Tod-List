@@ -11,7 +11,7 @@ const App = () => {
   useEffect(() => {
     axios.get('https://jsonplaceholder.typicode.com/todos')
       .then((response) => {
-        setTasks(response.data.slice(0, 20)); // Limita a 20 tarefas
+        setTasks(response.data.slice(0, 10)); // Limita a 20 tarefas
       })
       .catch((error) => {
         console.error('Erro ao buscar tarefas:', error);

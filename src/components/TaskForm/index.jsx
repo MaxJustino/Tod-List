@@ -32,11 +32,11 @@ const TaskForm = ({ onAddTask }) => {
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         placeholder="Adicionar nova tarefa"
-        className="p-2 border rounded"
+        className="p-2 w-65 border rounded w-full"
       />
       <button
   type="submit"
-  className="ml-2 p-2 bg-green-500 text-white rounded hover:bg-green-600 transition-colors"
+  className="m-4 px-6  block mx-auto p-2 bg-green-500 text-white rounded hover:bg-green-600 transition-colors"
 >
   Adicionar
 </button>
